@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="dll_debug|x64">
+      <Configuration>dll_debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="dll_release|x64">
+      <Configuration>dll_release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E1BC2AC0-F3DD-4892-8CF2-1041A63F7C9C}</ProjectGuid>
+    <RootNamespace>libfilezilla</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration">
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='dll_release'" Label="Configuration">
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="..\Dependencies.props" />
+  </ImportGroup>
+  <PropertyGroup>
+    <OutDir>$(ProjectDir)$(Platform)_$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup>
+    <IntDir>$(OutDir)</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='dll_debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP -Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>DLL_EXPORT;BUILDING_LIBFILEZILLA;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(dependency_imports);ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='dll_release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <PreprocessorDefinitions>DLL_EXPORT;BUILDING_LIBFILEZILLA;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(dependency_imports);ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="buffer.cpp" />
+    <ClCompile Include="encode.cpp" />
+    <ClCompile Include="encryption.cpp" />
+    <ClCompile Include="event.cpp" />
+    <ClCompile Include="event_handler.cpp" />
+    <ClCompile Include="event_loop.cpp" />
+    <ClCompile Include="file.cpp" />
+    <ClCompile Include="hash.cpp" />
+    <ClCompile Include="hostname_lookup.cpp" />
+    <ClCompile Include="impersonation.cpp" />
+    <ClCompile Include="invoker.cpp" />
+    <ClCompile Include="iputils.cpp" />
+    <ClCompile Include="local_filesys.cpp" />
+    <ClCompile Include="mutex.cpp" />
+    <ClCompile Include="nonowning_buffer.cpp" />
+    <ClCompile Include="process.cpp" />
+    <ClCompile Include="rate_limited_layer.cpp" />
+    <ClCompile Include="rate_limiter.cpp" />
+    <ClCompile Include="recursive_remove.cpp" />
+    <ClCompile Include="signature.cpp" />
+    <ClCompile Include="socket.cpp" />
+    <ClCompile Include="socket_errors.cpp" />
+    <ClCompile Include="string.cpp" />
+    <ClCompile Include="thread.cpp" />
+    <ClCompile Include="thread_pool.cpp" />
+    <ClCompile Include="time.cpp" />
+    <ClCompile Include="tls_info.cpp" />
+    <ClCompile Include="tls_layer.cpp" />
+    <ClCompile Include="tls_layer_impl.cpp" />
+    <ClCompile Include="tls_system_trust_store.cpp" />
+    <ClCompile Include="translate.cpp" />
+    <ClCompile Include="uri.cpp" />
+    <ClCompile Include="util.cpp" />
+    <ClCompile Include="version.cpp" />
+    <ClCompile Include="windows\dll.cpp" />
+    <ClCompile Include="windows\poller.cpp" />
+    <ClCompile Include="windows\security_descriptor_builder.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libfilezilla\apply.hpp" />
+    <ClInclude Include="libfilezilla\buffer.hpp" />
+    <ClInclude Include="libfilezilla\encode.hpp" />
+    <ClInclude Include="libfilezilla\encryption.hpp" />
+    <ClInclude Include="libfilezilla\event.hpp" />
+    <ClInclude Include="libfilezilla\event_handler.hpp" />
+    <ClInclude Include="libfilezilla\event_loop.hpp" />
+    <ClInclude Include="libfilezilla\file.hpp" />
+    <ClInclude Include="libfilezilla\format.hpp" />
+    <ClInclude Include="libfilezilla\hash.hpp" />
+    <ClInclude Include="libfilezilla\hostname_lookup.hpp" />
+    <ClInclude Include="libfilezilla\impersonation.hpp" />
+    <ClInclude Include="libfilezilla\invoker.hpp" />
+    <ClInclude Include="libfilezilla\iputils.hpp" />
+    <ClInclude Include="libfilezilla\libfilezilla.hpp" />
+    <ClInclude Include="libfilezilla\local_filesys.hpp" />
+    <ClInclude Include="libfilezilla\logger.hpp" />
+    <ClInclude Include="libfilezilla\mutex.hpp" />
+    <ClInclude Include="libfilezilla\nonowning_buffer.hpp" />
+    <ClInclude Include="libfilezilla\optional.hpp" />
+    <ClInclude Include="libfilezilla\private\defs.hpp" />
+    <ClInclude Include="libfilezilla\private\visibility.hpp" />
+    <ClInclude Include="libfilezilla\private\windows.hpp" />
+    <ClInclude Include="libfilezilla\process.hpp" />
+    <ClInclude Include="libfilezilla\rate_limited_layer.hpp" />
+    <ClInclude Include="libfilezilla\rate_limiter.hpp" />
+    <ClInclude Include="libfilezilla\recursive_remove.hpp" />
+    <ClInclude Include="libfilezilla\rwmutex.hpp" />
+    <ClInclude Include="libfilezilla\shared.hpp" />
+    <ClInclude Include="libfilezilla\signature.hpp" />
+    <ClInclude Include="libfilezilla\socket.hpp" />
+    <ClInclude Include="libfilezilla\string.hpp" />
+    <ClInclude Include="libfilezilla\thread.hpp" />
+    <ClInclude Include="libfilezilla\thread_pool.hpp" />
+    <ClInclude Include="libfilezilla\time.hpp" />
+    <ClInclude Include="libfilezilla\tls_info.hpp" />
+    <ClInclude Include="libfilezilla\tls_layer.hpp" />
+    <ClInclude Include="libfilezilla\tls_system_trust_store.hpp" />
+    <ClInclude Include="libfilezilla\translate.hpp" />
+    <ClInclude Include="libfilezilla\uri.hpp" />
+    <ClInclude Include="libfilezilla\util.hpp" />
+    <ClInclude Include="libfilezilla\version.hpp" />
+    <ClInclude Include="tls_layer_impl.hpp" />
+    <ClInclude Include="tls_system_trust_store_impl.hpp" />
+    <ClInclude Include="windows\dll.hpp" />
+    <ClInclude Include="windows\poller.hpp" />
+    <ClInclude Include="windows\security_descriptor_builder.hpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
